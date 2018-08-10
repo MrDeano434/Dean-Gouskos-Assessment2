@@ -2,33 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
+    public Rotation rot;
 
-	void Start ()
+    void Start()
     {
-		
-	}
-	
-	void Update ()
-    {
+        
+    }
 
+    void Update()
+    {
 
         //Movement();
+        /* void Movement()
+         {
+             if (Input.GetKeyDown(KeyCode.D))
+                 transform.Translate(1, 0, 0);
+         }
+         */    
     }
 
-
-
-
-
-
-   /* void Movement()
+    /*void CheckRotation()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-            transform.Translate(1, 0, 0);
-    }
-    */
-
-
+        if (rot.direction == Direction.Direction1)
+            
+    }*/
 }
 
 
