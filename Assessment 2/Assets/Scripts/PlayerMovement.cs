@@ -5,11 +5,54 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rotation rot;
+    public float speed = 6f;
+    public float jumpForce = 7;
+    public LayerMask groundLayers;
+    public SphereCollider col;
+
+    Vector3 movement;
+    Rigidbody playerRigidbody;
+    
 
     void Start()
     {
+        playerRigidbody = GetComponent<Rigidbody>();
+        col = GetComponent<SphereCollider>();
+    }
+
+    void FixedUpdate()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        Move(h, v);
+
+
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        {
+            playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y, col.bounds.center.z), col.radius * .9f, groundLayers);
         
     }
+
+    void Move (float h, float v)
+    {
+        movement.Set (h, 0f, v);
+
+        movement = movement.normalized * speed * Time.deltaTime;
+
+        playerRigidbody.MovePosition(transform.position + movement);
+    }
+
+   
+
+
+
 
     void Update()
     {
