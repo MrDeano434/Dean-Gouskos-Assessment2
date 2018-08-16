@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         movement.Set(h, 0f, v);
 
         movement = movement.normalized * speed * Time.deltaTime;
-
+ 
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
