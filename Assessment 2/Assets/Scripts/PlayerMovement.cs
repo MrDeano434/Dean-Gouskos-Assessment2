@@ -22,29 +22,36 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
         if (rot.direction == Direction.Direction1)
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
-            Move(h, v);
+            //float h = Input.GetAxisRaw("Horizontal");
+            //float v = Input.GetAxisRaw("Vertical");
+            //Move(h, v);
+            MoveAll(h, v);
         }
         else if (rot.direction == Direction.Direction2)
         {
-            float h2 = Input.GetAxisRaw("Horizontal");
-            float v2 = Input.GetAxisRaw("Vertical");
-            MoveTwo(h2, v2);
+            //float h2 = Input.GetAxisRaw("Horizontal");
+           // float v2 = Input.GetAxisRaw("Vertical");
+            //MoveTwo(h2, v2);
+            MoveAll(-v, -h);
         }
         else if (rot.direction == Direction.Direction3)
         {
-            float h3 = Input.GetAxisRaw("Horizontal");
-            float v3 = Input.GetAxisRaw("Vertical");
-            MoveThree(h3, v3);
+            //float h3 = Input.GetAxisRaw("Horizontal");
+            //float v3 = Input.GetAxisRaw("Vertical");
+            //MoveThree(h3, v3);
+            MoveAll(-h, -v);
         }
         else if (rot.direction == Direction.Direction4)
         {
-            float h4 = Input.GetAxisRaw("Horizontal");
-            float v4 = Input.GetAxisRaw("Vertical");
-            MoveFour(h4,v4);
+            //float h4 = Input.GetAxisRaw("Horizontal");
+            //float v4 = Input.GetAxisRaw("Vertical");
+            //MoveFour(h4,v4);
+            MoveAll(v, h);
         }
 
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
@@ -61,49 +68,58 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
-
-    void Move(float h, float v)
+    void MoveAll(float h, float v)
     {
         movement.Set(h, 0f, v);
 
         movement = movement.normalized * speed * Time.deltaTime;
+
+        playerRigidbody.MovePosition(transform.position + movement);
+    }
+
+
+
+    //void Move(float h, float v)
+    //{
+    //    movement.Set(h, 0f, v);
+
+    //    movement = movement.normalized * speed * Time.deltaTime;
  
-        playerRigidbody.MovePosition(transform.position + movement);
-    }
+    //    playerRigidbody.MovePosition(transform.position + movement);
+    //}
 
 
 
-    void MoveTwo(float h2, float v2)
-    {
-        movement.Set(-v2, 0f, -h2);
+    //void MoveTwo(float h2, float v2)
+    //{
+    //    movement.Set(-v2, 0f, -h2);
 
-        movement = movement.normalized * speed * Time.deltaTime;
+    //    movement = movement.normalized * speed * Time.deltaTime;
 
-        playerRigidbody.MovePosition(transform.position + movement);
-    }
-
-
-
-    void MoveThree(float h3, float v3)
-    {
-        movement.Set(-h3, 0f, -v3);
-
-        movement = movement.normalized * speed * Time.deltaTime;
-
-        playerRigidbody.MovePosition(transform.position + movement);
-    }
+    //    playerRigidbody.MovePosition(transform.position + movement);
+    //}
 
 
 
-    void MoveFour(float h4, float v4)
-    {
-        movement.Set(v4, 0f, h4);
+    //void MoveThree(float h3, float v3)
+    //{
+    //    movement.Set(-h3, 0f, -v3);
 
-        movement = movement.normalized * speed * Time.deltaTime;
+    //    movement = movement.normalized * speed * Time.deltaTime;
 
-        playerRigidbody.MovePosition(transform.position + movement);
-    }
+    //    playerRigidbody.MovePosition(transform.position + movement);
+    //}
+
+
+
+    //void MoveFour(float h4, float v4)
+    //{
+    //    movement.Set(v4, 0f, h4);
+
+    //    movement = movement.normalized * speed * Time.deltaTime;
+
+    //    playerRigidbody.MovePosition(transform.position + movement);
+    //}
 
 }
 
