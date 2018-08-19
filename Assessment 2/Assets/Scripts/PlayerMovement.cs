@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,11 +14,18 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movement;
     Rigidbody playerRigidbody;
 
+    public Text countText;
+    public Text winText;
+    private int count;
+    private int winCount;
+
 
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         col = GetComponent<SphereCollider>();
+        SetCountText();
+        winText.text = "";
     }
 
     void FixedUpdate()
@@ -77,51 +85,80 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            SetCountText();
+        }
+        if (other.gameObject.CompareTag("WinPickUp"))
+        {
+            other.gameObject.SetActive(false);
+            winCount = winCount + 1;
+            SetCountText();
+        }
+    }
 
+    void SetCountText()
+    {
+        countText.text = "Collectables: " + count.ToString() + "/10";
+        if (count >= 10 && (winCount >= 1))
+        {
+            winText.text = "You Win!";
+        }
+    }
 
-    //void Move(float h, float v)
-    //{
-    //    movement.Set(h, 0f, v);
-
-    //    movement = movement.normalized * speed * Time.deltaTime;
- 
-    //    playerRigidbody.MovePosition(transform.position + movement);
-    //}
-
-
-
-    //void MoveTwo(float h2, float v2)
-    //{
-    //    movement.Set(-v2, 0f, -h2);
-
-    //    movement = movement.normalized * speed * Time.deltaTime;
-
-    //    playerRigidbody.MovePosition(transform.position + movement);
-    //}
-
-
-
-    //void MoveThree(float h3, float v3)
-    //{
-    //    movement.Set(-h3, 0f, -v3);
-
-    //    movement = movement.normalized * speed * Time.deltaTime;
-
-    //    playerRigidbody.MovePosition(transform.position + movement);
-    //}
-
-
-
-    //void MoveFour(float h4, float v4)
-    //{
-    //    movement.Set(v4, 0f, h4);
-
-    //    movement = movement.normalized * speed * Time.deltaTime;
-
-    //    playerRigidbody.MovePosition(transform.position + movement);
-    //}
-
+    
 }
+
+
+
+
+        //void Move(float h, float v)
+        //{
+        //    movement.Set(h, 0f, v);
+
+        //    movement = movement.normalized * speed * Time.deltaTime;
+
+        //    playerRigidbody.MovePosition(transform.position + movement);
+        //}
+
+
+
+        //void MoveTwo(float h2, float v2)
+        //{
+        //    movement.Set(-v2, 0f, -h2);
+
+        //    movement = movement.normalized * speed * Time.deltaTime;
+
+        //    playerRigidbody.MovePosition(transform.position + movement);
+        //}
+
+
+
+        //void MoveThree(float h3, float v3)
+        //{
+        //    movement.Set(-h3, 0f, -v3);
+
+        //    movement = movement.normalized * speed * Time.deltaTime;
+
+        //    playerRigidbody.MovePosition(transform.position + movement);
+        //}
+
+
+
+        //void MoveFour(float h4, float v4)
+        //{
+        //    movement.Set(v4, 0f, h4);
+
+        //    movement = movement.normalized * speed * Time.deltaTime;
+
+        //    playerRigidbody.MovePosition(transform.position + movement);
+        //}
+
+
 
 
 
